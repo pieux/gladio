@@ -15,7 +15,7 @@
         </environment>
     </environments>
 
-    <!--<mappers>-->
-        <!--<mapper resource="com/dianping/gladio/mapper/UserMapper.xml"/>-->
-    <!--</mappers>-->
+    <mappers>
+        <mapper resource="com/dianping/gladio/mapper/UserMapper.xml"/>
+    </mappers>
 </configuration>

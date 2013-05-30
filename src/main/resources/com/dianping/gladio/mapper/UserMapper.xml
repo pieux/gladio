@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="UserDao">
+
+    <resultMap id="userResultMap" type="UserDao">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+    </resultMap>
+
+    <select id="getAll" resultMap="userResultMap">
+        SELECT * FROM user
+    </select>
+
+    <select id="getById" parameterType="int" resultMap="userResultMap">
+        SELECT * FROM user WHERE id = #{id}
+    </select>
+
+    <delete id="deleteById" parameterType="int">
+        DELETE from user WHERE id = #{id};
+    </delete>
+
+    <insert id="insert" parameterType="UserDao">
+        INSERT INTO user (name)
+        VALUES (#{name});
+        <selectKey keyProperty="id" resultType="int" order="AFTER">
+            select last_insert_id() as id
+        </selectKey>
+    </insert>
+
+    <update id="update" parameterType="UserDao">
+        UPDATE user
+        SET
+            name = #{name},
+        WHERE id = #{id};
+  </update>
+
+</mapper>
