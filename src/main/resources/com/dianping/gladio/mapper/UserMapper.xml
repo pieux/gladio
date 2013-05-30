@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="UserDao">
+<mapper namespace="UserMapper">
 
     <resultMap id="userResultMap" type="UserDao">
         <result property="id" column="id"/>
@@ -14,13 +14,13 @@
         SELECT * FROM user
     </select>
 
-    <select id="getById" parameterType="int" resultMap="userResultMap">
-        SELECT * FROM user WHERE id = #{id}
-    </select>
+    <!--<select id="getById" parameterType="int" resultMap="userResultMap">-->
+        <!--SELECT * FROM user WHERE id = #{id}-->
+    <!--</select>-->
 
-    <delete id="deleteById" parameterType="int">
-        DELETE from user WHERE id = #{id};
-    </delete>
+    <!--<delete id="deleteById" parameterType="int">-->
+        <!--DELETE from user WHERE id = #{id};-->
+    <!--</delete>-->
 
     <insert id="insert" parameterType="UserDao">
         INSERT INTO user (name)
@@ -30,11 +30,11 @@
         </selectKey>
     </insert>
 
-    <update id="update" parameterType="UserDao">
-        UPDATE user
-        SET
-            name = #{name},
-        WHERE id = #{id};
-  </update>
+    <!--<update id="update" parameterType="UserDao">-->
+        <!--UPDATE user-->
+        <!--SET-->
+            <!--name = #{name},-->
+        <!--WHERE id = #{id};-->
+  <!--</update>-->
 
 </mapper>

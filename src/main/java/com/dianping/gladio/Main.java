@@ -8,7 +8,11 @@
 
 package com.dianping.gladio;
 
+import com.dianping.gladio.dao.UserDao;
+import com.dianping.gladio.mapper.UserMapper;
 import org.apache.log4j.Logger;
+
+import java.util.List;
 
 public class Main {
     public static void main(String args[]) {
@@ -17,6 +21,12 @@ public class Main {
         logger.debug("Beginning...");
 
         System.out.println("Hello, Gladiolus");
+
+        UserMapper userMapper = new UserMapper();
+        UserDao userDao = new UserDao();
+        userDao.setName("Pieux Xi");
+
+        List<UserDao> userDaos = userMapper.selectAll();
 
         logger.debug("...Ending");
     }
