@@ -35,12 +35,6 @@
 
     </dependencies>
 
-    <!--<build>-->
-        <!--<testResources>-->
-            <!--<testResource>-->
-                <!--<directory>resources/mybatis-config.xml</directory>-->
-            <!--</testResource>-->
-        <!--</testResources>-->
-    <!--</build>-->
+
 
 </project>

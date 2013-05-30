@@ -10,25 +10,34 @@ package com.dianping.gladio;
 
 import com.dianping.gladio.dao.UserDao;
 import com.dianping.gladio.mapper.UserMapper;
-import org.apache.log4j.Logger;
 
 import java.util.List;
 
 public class Main {
+
+//    static Logger logger = Logger.getLogger(Main.class);
+
     public static void main(String args[]) {
 
-        Logger logger = Logger.getLogger(Main.class);
-        logger.debug("Beginning...");
+//        logger.debug("Beginning...");
 
         System.out.println("Hello, Gladiolus");
 
-        UserMapper userMapper = new UserMapper();
-        UserDao userDao = new UserDao();
-        userDao.setName("Pieux Xi");
+        UserMapper userMapper = new UserMapper(MyBatisConnectionFactory.getSqlSessionFactory());
+        UserDao newUserDao = new UserDao();
+        newUserDao.setName("Xi 33");
+        userMapper.insert(newUserDao);
 
-        List<UserDao> userDaos = userMapper.selectAll();
+        List<UserDao> userDaos = userMapper.getAll();
 
-        logger.debug("...Ending");
+        for (int i = 0; i < userDaos.size(); i++)
+        {
+            userMapper.delete(userDaos.get(i).getId());
+        }
+
+        List<UserDao> refreshUserDaos = userMapper.getAll();
+
+//        logger.debug("...Ending");
     }
 
 }

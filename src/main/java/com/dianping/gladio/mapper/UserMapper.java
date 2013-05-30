@@ -1,6 +1,5 @@
 package com.dianping.gladio.mapper;
 
-import com.dianping.gladio.MyBatisConnectionFactory;
 import com.dianping.gladio.dao.UserDao;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -15,37 +14,75 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 
-
 public class UserMapper {
 
-    private SqlSessionFactory sqlSessionFactory;
+    private SqlSessionFactory sqlSessionFactory = null;
 
-    public UserMapper() {
-        sqlSessionFactory = MyBatisConnectionFactory.getSqlSessionFactory();
+    public UserMapper(SqlSessionFactory sqlSessionFactory) {
+        this.sqlSessionFactory = sqlSessionFactory;
     }
 
     @SuppressWarnings("unchecked")
-    public List<UserDao> selectAll() {
+    public List<UserDao> getAll() {
         SqlSession sqlSession = sqlSessionFactory.openSession();
 
         try {
-            List<UserDao> list = sqlSession.selectList("UserMapper.getAll");
-            System.out.printf("selectAll() --> " + list);
+            List<UserDao> list = sqlSession.selectList("UserDao.getAll");
+            System.out.printf("getAll() --> " + list);
             return list;
         } finally {
             sqlSession.close();
         }
     }
 
+    public UserDao getById(int id) {
+        UserDao result = null;
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        try {
+            result = sqlSession.selectOne("UserDao.getById", id);
+            System.out.printf("getById(" + id + ") --> " + result);
+            return result;
+        } finally {
+            sqlSession.close();
+        }
+    }
+
     public void insert(UserDao userDao) {
+        int id = -1;
         SqlSession sqlSession = sqlSessionFactory.openSession();
 
         try {
-            List<UserDao> list = sqlSession.selectList("UserMapper.insert");
+            id = sqlSession.insert("UserDao.insert", userDao);
             sqlSession.commit();
             System.out.printf("insert(" + userDao + ") --> " + userDao.getId());
         } finally {
             sqlSession.close();
         }
     }
+
+    public void update(UserDao userDao) {
+        int id = -1;
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+
+        try {
+            id = sqlSession.update("UserDao.update", userDao);
+            sqlSession.commit();
+            System.out.printf("update(" + userDao + ") --> updated");
+        } finally {
+            sqlSession.close();
+        }
+    }
+
+    public void delete(int id) {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+
+        try {
+            sqlSession.delete("UserDao.deleteById", id);
+            sqlSession.commit();
+            System.out.printf("delete(" + id + ") --> deleted");
+        } finally {
+            sqlSession.close();
+        }
+    }
+
 }

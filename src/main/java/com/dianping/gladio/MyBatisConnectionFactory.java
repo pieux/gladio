@@ -26,7 +26,7 @@ public class MyBatisConnectionFactory {
             InputStream inputStream = Resources.getResourceAsStream(resource);
             if (sqlSessionFactory == null)
             {
-                SqlSessionFactory sqlSessionFactory =
+                sqlSessionFactory =
                         new SqlSessionFactoryBuilder().build(inputStream);
             }
         } catch (FileNotFoundException fnfEx) {
