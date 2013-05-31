@@ -28,7 +28,7 @@ public class UserMapper {
 
         try {
             List<UserDao> list = sqlSession.selectList("UserDao.getAll");
-            System.out.printf("getAll() --> " + list);
+            System.out.println("getAll() --> " + list);
             return list;
         } finally {
             sqlSession.close();
@@ -39,8 +39,8 @@ public class UserMapper {
         UserDao result = null;
         SqlSession sqlSession = sqlSessionFactory.openSession();
         try {
-            result = sqlSession.selectOne("UserMapper.getById", id);
-            System.out.printf("getById(" + id + ") --> " + result);
+            result = sqlSession.selectOne("UserDao.getById", id);
+            System.out.println("getById(" + id + ") --> " + result);
             return result;
         } finally {
             sqlSession.close();
@@ -52,9 +52,9 @@ public class UserMapper {
         SqlSession sqlSession = sqlSessionFactory.openSession();
 
         try {
-            id = sqlSession.insert("UserMapper.insert", userDao);
+            id = sqlSession.insert("UserDao.insert", userDao);
             sqlSession.commit();
-            System.out.printf("insert(" + userDao + ") --> " + userDao.getId());
+            System.out.println("insert(" + userDao + ") --> " + userDao.getId());
         } finally {
             sqlSession.close();
         }
@@ -65,9 +65,9 @@ public class UserMapper {
         SqlSession sqlSession = sqlSessionFactory.openSession();
 
         try {
-            id = sqlSession.update("UserMapper.update", userDao);
+            id = sqlSession.update("UserDao.update", userDao);
             sqlSession.commit();
-            System.out.printf("update(" + userDao + ") --> updated");
+            System.out.println("update(" + userDao + ") --> updated");
         } finally {
             sqlSession.close();
         }
@@ -77,9 +77,9 @@ public class UserMapper {
         SqlSession sqlSession = sqlSessionFactory.openSession();
 
         try {
-            sqlSession.delete("UserMapper.deleteById", id);
+            sqlSession.delete("UserDao.deleteById", id);
             sqlSession.commit();
-            System.out.printf("deleteById(" + id + ") --> deleted");
+            System.out.println("deleteById(" + id + ") --> deleted");
         } finally {
             sqlSession.close();
         }

@@ -24,19 +24,19 @@ public class Main {
         System.out.println("Hello, Gladiolus");
 
         UserMapper userMapper = new UserMapper(MyBatisConnectionFactory.getSqlSessionFactory());
-//        UserDao newUserDao = new UserDao();
-//        newUserDao.setName("Xi 33");
-//        userMapper.insert(newUserDao);
+        UserDao newUserDao = new UserDao();
+        newUserDao.setName("Xi 33");
+        userMapper.insert(newUserDao);
 
         List<UserDao> userDaos = userMapper.getAll();
 
-//        for (int i = 0; i < userDaos.size(); i++)
-//        {
-//            userMapper.deleteById(userDaos.get(i).getId());
-//        }
-//
-//        List<UserDao> refreshUserDaos = userMapper.getAll();
+        for (int i = 0; i < userDaos.size(); i++)
+        {
+            userMapper.deleteById(userDaos.get(i).getId());
+        }
 
+        List<UserDao> refreshUserDaos = userMapper.getAll();
+//
 //        logger.debug("...Ending");
     }
 
