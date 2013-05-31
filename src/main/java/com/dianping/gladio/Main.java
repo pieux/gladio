@@ -10,6 +10,8 @@ package com.dianping.gladio;
 
 import com.dianping.gladio.dao.UserDao;
 import com.dianping.gladio.mapper.UserMapper;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 
 import java.util.List;
 
@@ -23,19 +25,34 @@ public class Main {
 
         System.out.println("Hello, Gladiolus");
 
-        UserMapper userMapper = new UserMapper(MyBatisConnectionFactory.getSqlSessionFactory());
-        UserDao newUserDao = new UserDao();
-        newUserDao.setName("Xi 33");
-        userMapper.insert(newUserDao);
+        SqlSessionFactory sqlSessionFactory = MyBatisConnectionFactory.getSqlSessionFactory();
+        SqlSession sqlSession = sqlSessionFactory.openSession();
 
-        List<UserDao> userDaos = userMapper.getAll();
-
-        for (int i = 0; i < userDaos.size(); i++)
-        {
-            userMapper.deleteById(userDaos.get(i).getId());
+        int newId = -1;
+        try {
+            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+            UserDao newUserDao = new UserDao();
+            newUserDao.setName("Xi 33");
+            userMapper.insert(newUserDao);
+            sqlSession.commit();
+            newId = newUserDao.getId();
+        } finally {
+            sqlSession.close();
         }
 
-        List<UserDao> refreshUserDaos = userMapper.getAll();
+//        UserMapper userMapper = new UserMapper(MyBatisConnectionFactory.getSqlSessionFactory());
+//        UserDao newUserDao = new UserDao();
+//        newUserDao.setName("Xi 33");
+//        userMapper.insert(newUserDao);
+//
+//        List<UserDao> userDaos = userMapper.getAll();
+//
+//        for (int i = 0; i < userDaos.size(); i++)
+//        {
+//            userMapper.deleteById(userDaos.get(i).getId());
+//        }
+//
+//        List<UserDao> refreshUserDaos = userMapper.getAll();
 
 //        logger.debug("...Ending");
     }
