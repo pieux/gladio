@@ -27,7 +27,7 @@ public class UserMapper {
         SqlSession sqlSession = sqlSessionFactory.openSession();
 
         try {
-            List<UserDao> list = sqlSession.selectList("UserDao.getAll");
+            List<UserDao> list = sqlSession.selectList("com.dianping.gladio.mapper.UserMapper.getAll");
             System.out.println("getAll() --> " + list);
             return list;
         } finally {
@@ -39,7 +39,7 @@ public class UserMapper {
         UserDao result = null;
         SqlSession sqlSession = sqlSessionFactory.openSession();
         try {
-            result = sqlSession.selectOne("UserDao.getById", id);
+            result = sqlSession.selectOne("com.dianping.gladio.mapper.UserMapper.getById", id);
             System.out.println("getById(" + id + ") --> " + result);
             return result;
         } finally {
@@ -52,7 +52,7 @@ public class UserMapper {
         SqlSession sqlSession = sqlSessionFactory.openSession();
 
         try {
-            id = sqlSession.insert("UserDao.insert", userDao);
+            id = sqlSession.insert("com.dianping.gladio.mapper.UserMapper.insert", userDao);
             sqlSession.commit();
             System.out.println("insert(" + userDao + ") --> " + userDao.getId());
         } finally {
@@ -65,7 +65,7 @@ public class UserMapper {
         SqlSession sqlSession = sqlSessionFactory.openSession();
 
         try {
-            id = sqlSession.update("UserDao.update", userDao);
+            id = sqlSession.update("com.dianping.gladio.mapper.UserMapper.update", userDao);
             sqlSession.commit();
             System.out.println("update(" + userDao + ") --> updated");
         } finally {
@@ -77,7 +77,7 @@ public class UserMapper {
         SqlSession sqlSession = sqlSessionFactory.openSession();
 
         try {
-            sqlSession.delete("UserDao.deleteById", id);
+            sqlSession.delete("com.dianping.gladio.mapper.UserMapper.deleteById", id);
             sqlSession.commit();
             System.out.println("deleteById(" + id + ") --> deleted");
         } finally {
