@@ -9,7 +9,13 @@
 package com.dianping.gladio;
 
 import com.dianping.gladio.dao.UserDao;
+import com.dianping.gladio.domain.ClientService;
+import com.dianping.gladio.domain.DomainModule;
+import com.dianping.gladio.domain.Service;
 import com.dianping.gladio.mapper.UserMapper;
+import com.google.inject.Guice;
+import com.google.inject.Inject;
+import com.google.inject.Injector;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
@@ -25,20 +31,24 @@ public class Main {
 
         System.out.println("Hello, Gladiolus");
 
-        SqlSessionFactory sqlSessionFactory = MyBatisConnectionFactory.getSqlSessionFactory();
-        SqlSession sqlSession = sqlSessionFactory.openSession();
+        Injector injector = Guice.createInjector(new DomainModule());
+        ClientService clientService = injector.getInstance(ClientService.class);
+        clientService.go();
 
-        int newId = -1;
-        try {
-            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
-            UserDao newUserDao = new UserDao();
-            newUserDao.setName("Xi 33");
-            userMapper.insert(newUserDao);
-            sqlSession.commit();
-            newId = newUserDao.getId();
-        } finally {
-            sqlSession.close();
-        }
+//        SqlSessionFactory sqlSessionFactory = MyBatisConnectionFactory.getSqlSessionFactory();
+//        SqlSession sqlSession = sqlSessionFactory.openSession();
+//
+//        int newId = -1;
+//        try {
+//            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+//            UserDao newUserDao = new UserDao();
+//            newUserDao.setName("Xi 33");
+//            userMapper.insert(newUserDao);
+//            sqlSession.commit();
+//            newId = newUserDao.getId();
+//        } finally {
+//            sqlSession.close();
+//        }
 
 //        UserMapper userMapper = new UserMapper(MyBatisConnectionFactory.getSqlSessionFactory());
 //        UserDao newUserDao = new UserDao();
@@ -58,3 +68,4 @@ public class Main {
     }
 
 }
+
