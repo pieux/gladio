@@ -39,7 +39,7 @@ public class UserMapper {
         UserDao result = null;
         SqlSession sqlSession = sqlSessionFactory.openSession();
         try {
-            result = sqlSession.selectOne("UserDao.getById", id);
+            result = sqlSession.selectOne("UserMapper.getById", id);
             System.out.printf("getById(" + id + ") --> " + result);
             return result;
         } finally {
@@ -52,7 +52,7 @@ public class UserMapper {
         SqlSession sqlSession = sqlSessionFactory.openSession();
 
         try {
-            id = sqlSession.insert("UserDao.insert", userDao);
+            id = sqlSession.insert("UserMapper.insert", userDao);
             sqlSession.commit();
             System.out.printf("insert(" + userDao + ") --> " + userDao.getId());
         } finally {
@@ -65,7 +65,7 @@ public class UserMapper {
         SqlSession sqlSession = sqlSessionFactory.openSession();
 
         try {
-            id = sqlSession.update("UserDao.update", userDao);
+            id = sqlSession.update("UserMapper.update", userDao);
             sqlSession.commit();
             System.out.printf("update(" + userDao + ") --> updated");
         } finally {
@@ -73,13 +73,13 @@ public class UserMapper {
         }
     }
 
-    public void delete(int id) {
+    public void deleteById(int id) {
         SqlSession sqlSession = sqlSessionFactory.openSession();
 
         try {
-            sqlSession.delete("UserDao.deleteById", id);
+            sqlSession.delete("UserMapper.deleteById", id);
             sqlSession.commit();
-            System.out.printf("delete(" + id + ") --> deleted");
+            System.out.printf("deleteById(" + id + ") --> deleted");
         } finally {
             sqlSession.close();
         }

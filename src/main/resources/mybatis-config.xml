@@ -5,7 +5,8 @@
 <configuration>
 
     <typeAliases>
-        <typeAlias alias="UserDao" type="com.dianping.gladio.dao.UserDao"/>
+        <!--<typeAlias alias="UserDao" type="com.dianping.gladio.dao.UserDao"/>-->
+        <package name="com.dianping.gladio.dao"/>
     </typeAliases>
 
     <environments default="development">
